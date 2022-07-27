@@ -1,4 +1,48 @@
 package vn.nashtech.inventory.inventory.service.impl;
 
-public class InventoryServiceImpl {
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import vn.nashtech.inventory.inventory.api.dto.InventoryRequest;
+import vn.nashtech.inventory.inventory.database.entity.InventoryEntity;
+import vn.nashtech.inventory.inventory.database.repository.InventoryRepository;
+import vn.nashtech.inventory.inventory.service.InventoryService;
+
+@Service
+@Slf4j
+public class InventoryServiceImpl implements InventoryService{
+    private final InventoryService inventoryService;
+
+    @Autowired
+    public InventoryServiceImpl(InventoryRepository inventoryRepository) {
+        this.inventoryRepository = inventoryRepository;
+    }
+
+    @Override
+    public void create(InventoryRequest req) {
+        InventoryEntity entity = new InventoryEntity();
+        mapperData(entity, req);
+        inventoryRepository.save(entity);
+    }
+
+    @Override
+    public InventoryEntity updateInventory(Long id, InventoryRequest req) {
+        InventoryEntity inventory = inventoryRepository.findById(id).orElse(null);
+        if (good != null) {
+            mapperData(good, req);
+            return InventoryRepository.save(good);
+        }
+        return null;
+    }
+
+    @Override
+    public void deleteInventory(Long id) {
+        inventoryRepository.deleteById(id);
+    }
+
+    private void mapperData(InventoryEntity inventory, InventoryRequest req) {
+        inventory.setInventoryCode(req.getInventoryCode());
+        inventory.setInventoryDescription(req.getInventoryDescription());
+        inventory.setInventoryName(req.getInventoryName());
+    }
 }
