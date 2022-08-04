@@ -11,7 +11,7 @@ import vn.nashtech.inventory.inventory.service.InventoryService;
 @Service
 @Slf4j
 public class InventoryServiceImpl implements InventoryService{
-    private final InventoryService inventoryService;
+    private final InventoryRepository inventoryRepository;
 
     @Autowired
     public InventoryServiceImpl(InventoryRepository inventoryRepository) {
@@ -28,9 +28,9 @@ public class InventoryServiceImpl implements InventoryService{
     @Override
     public InventoryEntity updateInventory(Long id, InventoryRequest req) {
         InventoryEntity inventory = inventoryRepository.findById(id).orElse(null);
-        if (good != null) {
-            mapperData(good, req);
-            return InventoryRepository.save(good);
+        if (inventory != null) {
+            mapperData(inventory, req);
+            return inventoryRepository.save(inventory);
         }
         return null;
     }

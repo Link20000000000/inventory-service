@@ -1,0 +1,409 @@
+swagger: '2.0'
+info:
+  description: Inventory service api definition
+  version: '1.0'
+  title: Merchant api definition
+  termsOfService: urn:tos
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+host: gate.dev.tripi.vn
+tags:
+  - name: inventory-controller
+    description: Inventory Controller
+  - name: category-controller
+    description: Category Controller
+paths:
+  /inventory/{inventoryId}:
+    get:
+      tags:
+        - inventory-controller
+      summary: Get detail inventory
+      operationId: searchInventoryUsingGET
+      produces:
+        - '*/*'
+      parameters:
+        - name: version
+          in: header
+          description: Thông tin version
+          required: true
+          type: string
+          enum:
+            - '1.0'
+            - '2.0'
+        - name: inventoryId
+          in: path
+          description: inventoryId
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/InventoryResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /inventory:
+    get:
+      tags:
+        - inventory-controller
+      summary: Get list inventory
+      operationId: getInventorysUsingGET
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: version
+          in: header
+          description: Thông tin version
+          required: true
+          type: string
+          enum:
+            - '1.0'
+            - '2.0'
+        - in: query
+          name: productCode
+          description: productCode
+          required: false
+          type: string
+        - in: query
+          name: productName
+          description: productName
+          required: false
+          type: string
+        - in: query
+          name: page
+          description: productName
+          required: false
+          type: integer
+        - in: query
+          name: size
+          description: productName
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ListInventoryResponse'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /inventory/:
+    post:
+      tags:
+        - inventory-controller
+      summary: Create inventory
+      operationId: createInventorysUsingGET
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: version
+          in: header
+          description: Thông tin version
+          required: true
+          type: string
+          enum:
+            - '1.0'
+            - '2.0'
+        - in: body
+          name: req
+          description: requestBody
+          schema:
+            $ref: '#/definitions/InventoryRequest'
+      responses:
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /inventory/{id}/:
+    put:
+      tags:
+        - inventory-controller
+      summary: Update inventory
+      operationId: updateInventorysUsingGET
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: version
+          in: header
+          description: Thông tin version
+          required: true
+          type: string
+          enum:
+            - '1.0'
+            - '2.0'
+        - in: path
+          description: Inventory id
+          required: true
+          type: integer
+          name: id
+        - in: body
+          name: req
+          description: requestBody
+          schema:
+            $ref: '#/definitions/InventoryRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/InventoryResponse'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /category/{categoryId}:
+    get:
+      tags:
+        - category-controller
+      summary: Get detail category
+      operationId: searchCategoryUsingGET
+      produces:
+        - '*/*'
+      parameters:
+        - name: version
+          in: header
+          description: Thông tin version
+          required: true
+          type: string
+          enum:
+            - '1.0'
+            - '2.0'
+        - name: categoryId
+          in: path
+          description: categoryId
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CategoryResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /category:
+    get:
+      tags:
+        - category-controller
+      summary: Get list category
+      operationId: getCategorysUsingGET
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: version
+          in: header
+          description: Thông tin version
+          required: true
+          type: string
+          enum:
+            - '1.0'
+            - '2.0'
+        - in: query
+          name: productCode
+          description: productCode
+          required: false
+          type: string
+        - in: query
+          name: productName
+          description: productName
+          required: false
+          type: string
+        - in: query
+          name: page
+          description: productName
+          required: false
+          type: integer
+        - in: query
+          name: size
+          description: productName
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ListCategoryResponse'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /category/:
+    post:
+      tags:
+        - category-controller
+      summary: Create category
+      operationId: createCategorysUsingGET
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: version
+          in: header
+          description: Thông tin version
+          required: true
+          type: string
+          enum:
+            - '1.0'
+            - '2.0'
+        - in: body
+          name: req
+          description: requestBody
+          schema:
+            $ref: '#/definitions/CategoryRequest' 
+      responses:
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /category/{id}/:
+    put:
+      tags:
+        - category-controller
+      summary: Update category
+      operationId: updateCategorysUsingGET
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: version
+          in: header
+          description: Thông tin version
+          required: true
+          type: string
+          enum:
+            - '1.0'
+            - '2.0'
+        - in: path
+          description: Category id
+          required: true
+          type: integer
+          name: id
+        - in: body
+          name: req
+          description: requestBody
+          schema:
+            $ref: '#/definitions/CategoryRequest' 
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CategoryResponse'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+definitions:
+  InventoryRequest:
+    type: object
+    properties:
+      productCode: 
+        type: string
+      productName:
+        type: string
+      productDescription:
+        type: string
+      unitId:
+        type: integer
+  InventoryResponse:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      productCode: 
+        type: string
+      productName:
+        type: string
+      productDescription:
+        type: string
+      unitId:
+        type: integer
+        format: int32
+  ListInventoryResponse:
+    type: object
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/InventoryResponse'
+      total:
+        type: integer
+        format: int64
+    title: ListInventoryResponse
+  CategoryRequest:
+    type: object
+    properties:
+      categoryCode: 
+        type: string
+      categoryName:
+        type: string
+      categoryDescription:
+        type: string
+  CategoryResponse:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      categoryCode: 
+        type: string
+      categoryName:
+        type: string
+      categoryDescription:
+        type: string
+  ListCategoryResponse:
+    type: object
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/CategoryResponse'
+      total:
+        type: integer
+        format: int64
+    title: ListCategoryResponse
