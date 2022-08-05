@@ -44,6 +44,7 @@ public class InventoryController {
         @ApiResponse(code = 401, message = "Unauthorized"),
         @ApiResponse(code = 403, message = "Forbidden"),
         @ApiResponse(code = 404, message = "Not Found") })
+
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@ApiParam(value = "requestBody") @RequestBody InventoryRequest request, @ApiParam(value = "Inventory id",required=true) @PathVariable(value = "id") String id) {
         InventoryResponse response = inventoryMapper.mapToRS(inventoryService.updateInventory(Long.parseLong(id), request));
